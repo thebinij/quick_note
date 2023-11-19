@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"quick-note/db"
+	_ "quick-note/docs"
 	"quick-note/internal/user"
 	"quick-note/router"
 
@@ -22,10 +23,14 @@ func main() {
 	}
 
 	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = "3000"
+	}
 
 	dbConnection, err := db.NewDatabase()
 	if err != nil {
 		log.Fatalf("failed to initialize of database connection: %s", err)
+		return
 	}
 
 	userRep := user.NewRepository(dbConnection.GetDB())
@@ -38,12 +43,3 @@ func main() {
 		log.Fatalf("Error in starting the server: %v", err)
 	}
 }
-
-// import (
-// 	// "github.com/gofiber/swagger"
-
-// 	// app.Get("/swagger/*", swagger.HandlerDefault)
-
-// 	go func() {
-// 		app.Listen("0.0.0.0:" + PORT)
-// 	}()

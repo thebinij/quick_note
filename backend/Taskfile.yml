@@ -1,13 +1,20 @@
 
 version: "3"
 
+dotenv: ['.env']
+
 tasks:
   dev:
+    desc: Hot reload. Watch for file changes and rebuild binary.
     cmds:
       - air
   build:
     cmds:
       - go build -o http-server cmd/main.go
+  tidy:
+    desc: Downloads dependencies and removes unused ones
+    cmds:
+      - go mod tidy
   start:
     cmds:
       - ./http-server

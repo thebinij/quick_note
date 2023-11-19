@@ -10,7 +10,12 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-var JWT_SECRET = os.Getenv("JWT_SECRET")
+var JWT_SECRET = func() string {
+	if secret := os.Getenv("JWT_SECRET"); secret != "" {
+		return secret
+	}
+	return "SECRET"
+}()
 
 type service struct {
 	Repository

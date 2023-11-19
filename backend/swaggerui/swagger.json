@@ -1,0 +1,160 @@
+{
+  "consumes": [
+    "application/json",
+    "multipart/form-data"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentation for go server",
+    "title": "Quick Note",
+    "contact": {
+      "name": "Binij Shrestha",
+      "email": "shresthabinij@gmail.com"
+    },
+    "license": {
+      "name": "AGPL",
+      "url": "http://opensource.org/licenses/AGPL"
+    },
+    "version": "1.0.0"
+  },
+  "basePath": "/api/v1",
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "payloads"
+        ],
+        "summary": "Post credentials.",
+        "operationId": "PostLogin",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/LoginUserReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/PostLoginRes200"
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "payloads"
+        ],
+        "summary": "Post credentials.",
+        "operationId": "CreateUser",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateUserReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/CreateUserRes200"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateUserReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "username": {
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "quick-note/internal/user"
+    },
+    "CreateUserRes": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "username": {
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "quick-note/internal/user"
+    },
+    "LoginUserReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        }
+      },
+      "x-go-package": "quick-note/internal/user"
+    },
+    "LoginUserRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "username": {
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "quick-note/internal/user"
+    }
+  },
+  "responses": {
+    "CreateUserRes200": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/CreateUserRes"
+      }
+    },
+    "PostLoginRes200": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/LoginUserRes"
+      }
+    }
+  },
+  "securityDefinitions": {
+    "basic": {
+      "type": "basic"
+    }
+  }
+}

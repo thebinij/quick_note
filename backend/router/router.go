@@ -15,11 +15,32 @@ func InitRouter(userHandler *user.Handler) {
 	app.Use(cors.New())
 	app.Use(logger.New())
 
-	app.Post("/signup", userHandler.CreateUser)
-	app.Post("/login", userHandler.Login)
-	app.Get("/logout", userHandler.Logout)
+	route := app.Group("/api/v1")
+
+	// Public Routes
+	route.Get("/ping", HealthCheck)
+
+	route.Post("/signup", userHandler.CreateUser)
+	route.Post("/login", userHandler.Login)
+	route.Get("/logout", userHandler.Logout)
+
+	// Private Routes
+
+	// Swagger Docs Route
+	swaggerRoute := app.Group("/api-docs")
+	app.Static("/", "./swaggerui")
+	swaggerRoute.Get("/", SwaggerDocs)
+
+}
+
+func SwaggerDocs(c *fiber.Ctx) error {
+	return c.SendFile("./swaggerui/index.html")
 }
 
 func Start(addr string) error {
 	return app.Listen(addr)
+}
+
+func HealthCheck(c *fiber.Ctx) error {
+	return c.SendString("Server is up and running!")
 }

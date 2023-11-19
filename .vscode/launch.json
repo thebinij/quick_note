@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Quick Note Go server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program":"${workspaceFolder}/backend/cmd",
+            "args": ["run", "${workspaceFolder}/backend/cmd/main.go"],
+            "envFile": "${workspaceFolder}/backend/.env"
+        }
+    ]
+}
